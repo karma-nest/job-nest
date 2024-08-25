@@ -4,4 +4,6 @@
  * @version
  */
 
-export { sequelize } from './db.lib';
+export { sequelize, redis } from './db.lib';
+
+export { default as NotificationLib } from './notification.lib';
