@@ -4,7 +4,9 @@
  * @module loggerConfig
  */
 
-export interface ILoggerConfig {
+interface ILoggerConfig {
   auth: string;
   system: string;
 }
+
+export { ILoggerConfig };

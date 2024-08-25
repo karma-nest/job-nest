@@ -4,6 +4,48 @@
  * @version
  */
 
+export { IAdmin, IAdminCreation } from './admin.interface';
+
+export {
+  IAuthConfig,
+  IRoleAuthConfig,
+  IAuthorizationConfig,
+  IAdminRegister,
+  ICandidateRegister,
+  IRecruiterRegister,
+} from './auth.interface';
+
+export {
+  ICandidate,
+  ICandidateQuery,
+  ICandidatesQuery,
+  ICandidateCreation,
+} from './candidate.interface';
+
 export { IDatabaseConfig } from './db.interface';
 
+export { IErrorSource, IErrorDetails } from './error.interface';
+
+export { IJwtToken } from './jwt.interface';
+
 export { ILoggerConfig } from './logger.interface';
+
+export {
+  INotificationConfig,
+  INotificationLib,
+} from './notification.interface';
+
+export {
+  IRecruiter,
+  IRecruiterCreation,
+  IRecruiterQuery,
+  IRecruitersQuery,
+} from './recruiter.interface';
+
+export {
+  IUser,
+  IUserQuery,
+  IUpdateContactQuery,
+  IUpdatePasswordQuery,
+  IUserCreation,
+} from './user.interface';
