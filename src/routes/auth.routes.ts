@@ -6,17 +6,20 @@
 
 import { Router } from 'express';
 import AuthController from '../controllers/auth.controller';
-import { AuthorizationMiddleware, rateLimiter } from '../middlewares';
+import {
+  accountAuthorizationMiddleware,
+  authenticationMiddleware,
+  passwordAuthorizationMiddleware,
+  rateLimiter,
+} from '../middlewares';
 
 export default class AuthRoutes {
   private readonly authRouter: Router;
   private readonly authController: AuthController;
-  private readonly authMiddleware: AuthorizationMiddleware;
 
   constructor() {
     this.authRouter = Router();
     this.authController = new AuthController();
-    this.authMiddleware = new AuthorizationMiddleware();
   }
 
   /**
@@ -60,7 +63,7 @@ export default class AuthRoutes {
     this.authRouter.get(
       '/logout',
       rateLimiter.loginAndLogout(),
-      this.authMiddleware.isAuthorized,
+      authenticationMiddleware.isAuthenticated,
       this.authController.logout
     );
 
@@ -87,7 +90,7 @@ export default class AuthRoutes {
     this.authRouter.patch(
       '/reset-password',
       rateLimiter.passwordResetAndActivation(),
-      this.authMiddleware.authorizePasswordReset,
+      passwordAuthorizationMiddleware.authorizePasswordReset,
       this.authController.resetPassword
     );
 
@@ -114,7 +117,7 @@ export default class AuthRoutes {
     this.authRouter.get(
       '/activate',
       rateLimiter.passwordResetAndActivation(),
-      this.authMiddleware.authorizeAccountActivation,
+      accountAuthorizationMiddleware.authorizeAccountActivation,
       this.authController.confirmAccountActivation
     );
 
