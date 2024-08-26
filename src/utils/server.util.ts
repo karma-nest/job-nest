@@ -6,6 +6,7 @@ import os from 'os';
 import { sequelize } from '../libs';
 import { logger } from './';
 import { Application } from 'express';
+import { associateModels } from '../models/associations';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ export const startServer = async (
 ): Promise<void> => {
   try {
     // Authenticate and sync database
+    associateModels();
     await sequelize.authenticate();
     await sequelize.sync({ force: false });
 

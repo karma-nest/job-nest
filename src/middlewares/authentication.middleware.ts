@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * @version
- * @module authenticationMiddleware
+ * @version 1.0.0
+ * @module AuthenticationMiddleware
  */
 import { Request, Response, NextFunction } from 'express';
 import { IAuthorizationConfig } from '../interfaces';
@@ -9,20 +9,20 @@ import { ResponseUtil } from '../utils';
 import { StatusCodes } from 'http-status-codes';
 
 export default class AuthenticationMiddleware extends ResponseUtil {
-  /**
-   * Constructor for the AuthenticationMiddleware class.
-   */
-  constructor() {
+  private static instance: AuthenticationMiddleware;
+
+  private constructor() {
     super('auth');
     this.moduleName = 'authentication.middleware';
   }
 
-  /**
-   * Retrieves the user role based on subdomain.
-   * @param {string} subdomain - The subdomain extracted from the URL.
-   * @returns {string} The user role associated with the subdomain.
-   * @public
-   */
+  public static getInstance(): AuthenticationMiddleware {
+    if (!AuthenticationMiddleware.instance) {
+      AuthenticationMiddleware.instance = new AuthenticationMiddleware();
+    }
+    return AuthenticationMiddleware.instance;
+  }
+
   public getUserRole = (subdomain: string): string => {
     switch (subdomain) {
       case 'admin':
@@ -36,23 +36,25 @@ export default class AuthenticationMiddleware extends ResponseUtil {
     }
   };
 
-  /**
-   * Middleware function that checks for a valid API key in the X-Authorization header.
-   *
-   * @param {Request} req - The Express request object.
-   * @param {Response} res - The Express response object.
-   * @param {NextFunction} next - The Express next function.
-   * @returns {void}
-   */
+  public getSubdomain = (req: Request): string => {
+    const { origin, baseUrl } = req.headers;
+    const hostname = new URL(origin + baseUrl).hostname;
+    const subdomain = hostname.split('.')[0];
+
+    if (!['admin', 'www', 'recruiter'].includes(subdomain)) {
+      throw new Error('Invalid subdomain.');
+    }
+
+    return subdomain;
+  };
+
   public isAuthenticated = (
     req: Request,
     res: Response,
     next: NextFunction
   ): void => {
     const authorizationHeader = req.headers['x-authorization'];
-    const subdomain = new URL(req.headers.origin + req.baseUrl).hostname.split(
-      '.'
-    )[0];
+    const subdomain = 'admin'; //this.getSubdomain(req);
 
     if (!authorizationHeader) {
       return this.error(
@@ -76,7 +78,8 @@ export default class AuthenticationMiddleware extends ResponseUtil {
 
     const authorizationConfig: IAuthorizationConfig = {
       token: bearerToken,
-      role,
+      role: role,
+      subdomain: subdomain,
     };
 
     req.app.locals.authorizationConfig = { ...authorizationConfig };
@@ -84,3 +87,5 @@ export default class AuthenticationMiddleware extends ResponseUtil {
     next();
   };
 }
+
+export const authenticationMiddleware = AuthenticationMiddleware.getInstance();

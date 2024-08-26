@@ -4,7 +4,15 @@
  * @version
  */
 
-export { isPassword } from './password.validator';
+export { validateAdmin } from './admin.validator';
+
+export { validateContactUpdate } from './contact.validator';
+
+export {
+  isPassword,
+  updatePasswordSchema,
+  validatePasswordUpdate,
+} from './password.validator';
 
 export {
   adminRegisterSchema,

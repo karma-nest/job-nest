@@ -70,6 +70,42 @@ class RateLimiter {
       legacyHeaders: false,
     });
   };
+
+  public getProfile: () => RateLimitRequestHandler = () => {
+    return rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 50,
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
+  };
+
+  public updateProfile: () => RateLimitRequestHandler = () => {
+    return rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 15,
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
+  };
+
+  public updateContactDetails: () => RateLimitRequestHandler = () => {
+    return rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 6,
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
+  };
+
+  public updatePassword: () => RateLimitRequestHandler = () => {
+    return rateLimit({
+      windowMs: 60 * 60 * 1000,
+      limit: 4,
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
+  };
 }
 
 export const rateLimiter = RateLimiter.getInstance();

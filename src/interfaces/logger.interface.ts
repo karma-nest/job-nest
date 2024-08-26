@@ -5,6 +5,7 @@
  */
 
 interface ILoggerConfig {
+  admin: string;
   auth: string;
   system: string;
 }
