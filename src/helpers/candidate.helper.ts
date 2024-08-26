@@ -54,7 +54,7 @@ export default class CandidateHelper {
     try {
       const candidate = await this.candidateModel.findOne({
         where: {
-          userd: {
+          userId: {
             [Op.eq]: userId,
           },
         },
