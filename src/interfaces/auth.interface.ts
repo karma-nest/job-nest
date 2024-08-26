@@ -31,6 +31,7 @@ interface IAuthConfig {
 interface IAuthorizationConfig {
   token: string;
   role: string;
+  subdomain: string;
 }
 
 interface IBaseRegister {
