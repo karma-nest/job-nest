@@ -54,7 +54,7 @@ export default class AuthenticationMiddleware extends ResponseUtil {
     next: NextFunction
   ): void => {
     const authorizationHeader = req.headers['x-authorization'];
-    const subdomain = 'admin'; //this.getSubdomain(req);
+    const subdomain = this.getSubdomain(req);
 
     if (!authorizationHeader) {
       return this.error(

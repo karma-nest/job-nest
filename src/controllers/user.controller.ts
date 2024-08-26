@@ -82,9 +82,9 @@ export default class UserController extends ResponseUtil {
    */
   public removeAccount = async (req: Request, res: Response): Promise<void> => {
     try {
-      const userId = req.app.locals.user.id;
+      const { id } = req.app.locals.user;
 
-      await this.userService.removeAccount(userId);
+      await this.userService.removeAccount(id);
       return this.response(res, StatusCodes.OK, undefined);
     } catch (error) {
       this.handleError(res, error);
