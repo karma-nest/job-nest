@@ -6,6 +6,8 @@
 
 export { validateAdmin } from './admin.validator';
 
+export { validateCandidate } from './candidate.validator';
+
 export { validateContactUpdate } from './contact.validator';
 
 export {
