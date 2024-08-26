@@ -4,10 +4,14 @@
  * @version
  */
 
+export { accountAuthorizationMiddleware } from './account.authorization.middleware';
+
 export { configureMiddlewares } from './app.middleware';
 
-export { default as AuthenticationMiddleware } from './authentication.middleware';
+export { authenticationMiddleware } from './authentication.middleware';
 
-export { default as AuthorizationMiddleware } from './authorization.middleware';
+export { passwordAuthorizationMiddleware } from './password.authorization.middleware';
+
+export { privateAuthorizationMiddleware } from './private.authorization.middleware';
 
 export { rateLimiter } from './rateLimiter.middleware';
