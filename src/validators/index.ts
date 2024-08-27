@@ -16,6 +16,8 @@ export {
   validatePasswordUpdate,
 } from './password.validator';
 
+export { validateRecruiter } from './recruiter.validator';
+
 export {
   adminRegisterSchema,
   candidateRegisterSchema,
