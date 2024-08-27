@@ -7,6 +7,7 @@
 interface ILoggerConfig {
   admin: string;
   auth: string;
+  recruiter: string;
   system: string;
 }
 

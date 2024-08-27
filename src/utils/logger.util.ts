@@ -75,5 +75,6 @@ export const getLoggerFor: (tokenName: string) => Logger = (
 export const logger = {
   admin: getLoggerFor(loggerConfig['admin']),
   auth: getLoggerFor(loggerConfig['auth']),
+  recruiter: getLoggerFor(loggerConfig['recruiter']),
   system: getLoggerFor(loggerConfig['system']),
 };
