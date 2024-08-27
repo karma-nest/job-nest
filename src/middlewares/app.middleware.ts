@@ -11,7 +11,12 @@ import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
 import { privateAuthorizationMiddleware } from './';
-import { AdminRoutes, AuthRoutes, CandidateRoutes } from '../routes';
+import {
+  AdminRoutes,
+  AuthRoutes,
+  CandidateRoutes,
+  RecruiterRoutes,
+} from '../routes';
 
 /**
  * Configure middlewares for the Express application.
@@ -56,4 +61,5 @@ export const configureMiddlewares = (app: Application): void => {
     privateAuthorizationMiddleware.authorizeCandidate,
     new CandidateRoutes().init()
   );
+  app.use(`${API_VERSION}/recruiters`, new RecruiterRoutes().init());
 };
