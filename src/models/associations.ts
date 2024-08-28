@@ -4,6 +4,7 @@
  * @version
  */
 import { Admin } from './admin.model';
+import { Application } from './application.model';
 import { Candidate } from './candidate.model';
 import { Job } from './job.model';
 import { Recruiter } from './recruiter.model';
@@ -11,6 +12,7 @@ import { User } from './user.model';
 
 const models = {
   Admin,
+  Application,
   Candidate,
   Job,
   Recruiter,
