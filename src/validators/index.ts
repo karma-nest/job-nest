@@ -10,6 +10,8 @@ export { validateCandidate } from './candidate.validator';
 
 export { validateContactUpdate } from './contact.validator';
 
+export { jobValidator } from './job.validator';
+
 export {
   isPassword,
   updatePasswordSchema,

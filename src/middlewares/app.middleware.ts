@@ -15,6 +15,7 @@ import {
   AdminRoutes,
   AuthRoutes,
   CandidateRoutes,
+  JobRoutes,
   RecruiterRoutes,
 } from '../routes';
 
@@ -61,5 +62,6 @@ export const configureMiddlewares = (app: Application): void => {
     privateAuthorizationMiddleware.authorizeCandidate,
     new CandidateRoutes().init()
   );
+  app.use(`${API_VERSION}/jobs`, new JobRoutes().init());
   app.use(`${API_VERSION}/recruiters`, new RecruiterRoutes().init());
 };

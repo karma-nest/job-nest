@@ -116,7 +116,6 @@ describe('validateCandidate', () => {
 
     expect(error).toBeDefined();
     if (error) {
-      console.log(error.details[0].message);
       expect(error.details[0].message).toBe(
         'Employment status must be a boolean value.'
       );
