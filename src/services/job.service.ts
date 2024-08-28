@@ -95,6 +95,7 @@ export default class JobService {
     try {
       const filteredJobs = await this.jobHelper.getJobs(filterQuery);
 
+      console.debug(filteredJobs);
       if (filteredJobs.length === 0) {
         throw this.errorUtil.createNotFoundError('No jobs available.', {
           module: this.moduleName,
