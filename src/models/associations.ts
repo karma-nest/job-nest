@@ -5,12 +5,14 @@
  */
 import { Admin } from './admin.model';
 import { Candidate } from './candidate.model';
+import { Job } from './job.model';
 import { Recruiter } from './recruiter.model';
 import { User } from './user.model';
 
 const models = {
   Admin,
   Candidate,
+  Job,
   Recruiter,
   User,
 };
@@ -23,4 +25,4 @@ const associateModels = () => {
   });
 };
 
-export { associateModels };
+export { associateModels, models };
