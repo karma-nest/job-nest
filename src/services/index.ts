@@ -6,6 +6,8 @@
 
 export { default as AdminService } from './admin.service';
 
+export { default as ApplicationService } from './application.service';
+
 export { default as AuthService } from './auth.service';
 
 export { default as CandidateService } from './candidate.service';

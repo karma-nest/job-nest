@@ -58,7 +58,7 @@ export default class JobController extends ResponseUtil {
       }
 
       await this.jobService.createJob(userId, jobData);
-      return this.response(res, StatusCodes.NO_CONTENT, undefined);
+      return this.response(res, StatusCodes.CREATED, undefined);
     } catch (error) {
       this.handleError(res, error);
     }
