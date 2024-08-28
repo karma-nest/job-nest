@@ -29,7 +29,7 @@ export const startServer = async (
 
     server.listen(port, () => {
       logger['system'].info({
-        serviceName: 'HuntX-API',
+        serviceName: process.env.APP_NAME,
         host: `http://${ip.address()}:${port}`,
         platform: os.platform(),
       });
