@@ -5,7 +5,6 @@
  */
 import Joi from 'joi';
 import { IApplicationsQuery } from 'src/interfaces';
-import { ApplicationStatus } from 'src/types';
 
 const applicationSchema = Joi.object({
   jobId: Joi.number().integer().required().messages({
@@ -22,12 +21,14 @@ const applicationSchema = Joi.object({
 
 const updateApplicationSchema = Joi.object({
   status: Joi.string()
-    .valid('Pending', 'Approved', 'Shortlisted', 'Rejected')
+    .valid('Approved', 'Shortlisted', 'Rejected')
     .required()
+    .label('Application Status')
     .messages({
-      'any.only':
-        'Status must be one of [Pending, Approved, Shortlisted, Rejected]',
-      'any.required': 'Status is required for update',
+      'any.required': '"Application Status" is required for update',
+      'any.only': '{{#label}} must be one of [Approved, Shortlisted, Rejected]',
+      'string.base': '"Application Status" must be a string',
+      'string.empty': '"Application Status" cannot be empty',
     }),
 });
 
@@ -40,9 +41,10 @@ const validateCreateApplication = (data: IApplicationsQuery) => {
 };
 
 const validateUpdateApplication = (status: string) => {
-  const { error, value } = updateApplicationSchema.validate(status, {
-    abortEarly: false,
-  });
+  const { error, value } = updateApplicationSchema.validate(
+    { status },
+    { abortEarly: false }
+  );
 
   return { error, value };
 };
