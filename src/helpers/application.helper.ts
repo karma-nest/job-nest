@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * @fileoverview This module contains helper methods for managing job applications.
  * @module ApplicationHelper
@@ -62,50 +63,48 @@ export default class ApplicationHelper {
     return whereClause;
   };
 
-  /**
-   * Creates a new application.
-   * @param {IApplication} applicationData - The data for the new application.
-   * @returns {Promise<void>} A promise that resolves when the application is created.
-   */
   public createApplication = async (
     applicationData: IApplication
-  ): Promise<void> => {
+  ): Promise<IApplication | null> => {
     const transaction: Transaction = await sequelize.transaction();
 
     try {
-      await this.applicationModel.create(applicationData, { transaction });
+      const application = await this.applicationModel.create(applicationData, {
+        transaction,
+      });
+
       await transaction.commit();
+
+      return application ? application : null;
     } catch (error) {
+      console.error(error);
       await transaction.rollback();
       console.error('Error creating application:', error);
       throw error;
     }
   };
 
-  /**
-   * Retrieves a single application based on the provided filter.
-   * @param {IApplicationQuery} applicationFilter - The filter for querying the application.
-   * @returns {Promise<IApplicationDTO | null>} A promise that resolves to the application DTO or null if not found.
-   */
   public getApplication = async (
     applicationFilter: IApplicationQuery
   ): Promise<IApplicationDTO | null> => {
     try {
+      // Build query conditions dynamically based on input
+      const queryConditions: any = {
+        [Op.or]: [],
+      };
+
+      if (applicationFilter.applicationId) {
+        queryConditions[Op.or].push({ id: applicationFilter.applicationId });
+      }
+      if (applicationFilter.candidateId) {
+        queryConditions[Op.or].push({
+          candidateId: applicationFilter.candidateId,
+        });
+      }
+
+      // Fetch the application with associated models
       const application = await this.applicationModel.findOne({
-        where: {
-          [Op.or]: [
-            {
-              id: {
-                [Op.eq]: applicationFilter.applicationId,
-              },
-            },
-            {
-              candidateId: {
-                [Op.eq]: applicationFilter.candidateId,
-              },
-            },
-          ],
-        },
+        where: queryConditions,
         include: [
           {
             model: models.Job,
@@ -114,6 +113,12 @@ export default class ApplicationHelper {
               {
                 model: models.Recruiter,
                 as: 'recruiter',
+                include: [
+                  {
+                    model: models.User,
+                    as: 'user',
+                  },
+                ],
               },
             ],
           },
@@ -137,15 +142,16 @@ export default class ApplicationHelper {
     }
   };
 
-  /**
-   * Retrieves multiple applications based on the provided filter query.
-   * @param {IApplicationsQuery} filterQuery - The filter query for applications.
-   * @returns {Promise<IApplicationDTO[]>} A promise that resolves to an array of application DTOs.
-   */
   public getApplications = async (
-    filterQuery: IApplicationsQuery
+    filterQuery: IApplicationsQuery,
+    page = 1,
+    pageSize = 12
   ): Promise<IApplicationDTO[]> => {
     try {
+      const limit = pageSize;
+      const offset = (page - 1) * pageSize;
+
+      // Fetch the applications with associated models and pagination
       const applications = await this.applicationModel.findAll({
         where: this.buildWhereClause(filterQuery),
         include: [
@@ -156,6 +162,12 @@ export default class ApplicationHelper {
               {
                 model: models.Recruiter,
                 as: 'recruiter',
+                include: [
+                  {
+                    model: models.User,
+                    as: 'user',
+                  },
+                ],
               },
             ],
           },
@@ -170,6 +182,8 @@ export default class ApplicationHelper {
             ],
           },
         ],
+        limit,
+        offset,
       });
 
       return applications.map(toIApplicationDTO);
@@ -179,12 +193,6 @@ export default class ApplicationHelper {
     }
   };
 
-  /**
-   * Updates the status of an application.
-   * @param {number} applicationId - The ID of the application to update.
-   * @param {ApplicationStatus} status - The new status for the application.
-   * @returns {Promise<void>} A promise that resolves when the application status is updated.
-   */
   public updateApplication = async (
     applicationId: number,
     status: ApplicationStatus
