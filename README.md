@@ -2,7 +2,7 @@
   <h1>HuntX Engine</h1>
 </p>
 <p align="center">
-    <em><code>🔍 Job Recruitment & HR System RESTful API.</code></em>
+    <em><code>🔍 Job Recruitment RESTful API.</code></em>
 </p>
 <p align="center">
 <img alt="GitHub NX Status" src="https://github.com/afridek-software/huntx-engine/actions/workflows/ci.yml/badge.svg">
@@ -53,24 +53,18 @@
 
 ## 📍 Overview
 
-<code>Our Job Recruitment & HR System API simplifies job recruitment and HR management.</code>
+<code>Our Job Recruitment API simplifies job recruitment.</code>
 
 ---
 
 ## 📦 Features
 
-### Job Recruitment
-
-- **Job Posting:** Easily create and manage job listings with detailed descriptions, requirements, and application instructions.
-- **Candidate Tracking:** Monitor application statuses and manage candidates through every stage of the recruitment process.
-- **Advanced Search:** Use powerful filters and search options to find the best candidates for your job openings.
-- **Application Management:** Review applications, schedule interviews, and communicate with candidates directly through the platform.
-
-### HR Management
-
-- **Employee Records:** Maintain detailed records of employee information, including personal details, job roles, and employment history.
-- **Payroll Management:** Handle payroll processing with features for salary calculations, deductions, and benefits management.
-- **Performance Tracking:** Evaluate employee performance with integrated tools for reviews, feedback, and goal setting.
+- **Admin Management**: Description of the admin management features. This includes tools and interfaces for managing users, permissions, and system configurations.
+- **Application Management**: Manage and track job applications. This includes application submission, status tracking, and communication with candidates.
+- **Authentication**: Secure login and registration system with support for multi-factor authentication, password recovery, and account activation.
+- **Candidate Management**: Features for managing candidate profiles, skill sets, and job preferences. Includes tools for candidates to track their application history and receive job alerts.
+- **Job Posting**: Easily create and manage job listings. Recruiters can specify job requirements, deadlines, and view applicant statistics.
+- **Recruiter Management**: Tools for recruiters to manage job postings, candidate communications, and application reviews.
 
 ---
 
