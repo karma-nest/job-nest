@@ -62,19 +62,20 @@ export default class JobHelper {
     }
 
     if (jobQuery.title) {
-      whereClause['title'] = { [Op.like]: `%${jobQuery.title}%` };
+      whereClause['title'] = { [Op.iLike]: `%${jobQuery.title}%` };
     }
 
     if (jobQuery.type) {
-      if (Array.isArray(jobQuery.tags)) {
-        whereClause['tags'] = { [Op.contains]: jobQuery.tags };
-      } else if (jobQuery.tags) {
-        whereClause['tags'] = { [Op.like]: `%${jobQuery.tags}%` };
-      }
+      whereClause.raw = sequelize.where(
+        sequelize.cast(sequelize.col('type'), 'TEXT'),
+        {
+          [Op.iLike]: `%${jobQuery.type}%`,
+        }
+      );
     }
 
     if (jobQuery.location) {
-      whereClause['location'] = { [Op.like]: `%${jobQuery.location}%` };
+      whereClause['location'] = { [Op.iLike]: `%${jobQuery.location}%` };
     }
 
     return whereClause;
@@ -151,7 +152,7 @@ export default class JobHelper {
    */
   public getJobs = async (jobsQuery: IJobQuery): Promise<IJobDTO[]> => {
     try {
-      const pageSize = 12;
+      const pageSize = jobsQuery.pageSize | 12;
       const page = jobsQuery.page || 1;
       const offset = (page - 1) * pageSize;
 
@@ -227,6 +228,4 @@ export default class JobHelper {
       throw error;
     }
   };
-
-  // Helper methods for transaction management
 }

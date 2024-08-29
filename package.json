@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npx env-cmd -f ./dev.env nx serve",
-    "dev": "npx env-cmd -f ./dev.env nx serve",
+    "start": "npx env-cmd -f ./.env nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test --reporters default jest-stare"
   },
   "private": false,
   "dependencies": {
@@ -24,7 +23,7 @@
     "http-status-codes": "^2.3.0",
     "ioredis": "^5.4.1",
     "ip": "^2.0.1",
-    "jest-stare": "^2.5.1",
+    "jest-stare": "^2.5.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
