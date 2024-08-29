@@ -14,7 +14,7 @@ export default class ApplicationTemplate {
 
   public applicationReceived = (
     firstName: string,
-    application: Partial<IApplicationDTO> 
+    application: Partial<IApplicationDTO>
   ): string => {
     return this.notificationUtil.getMailgenInstance('salted').generate({
       body: {
@@ -31,7 +31,7 @@ export default class ApplicationTemplate {
             )}`,
           },
         },
-        outro: `If you have any questions, feel free to contact our support team at support@${application.job.recruiter.email}.`,
+        outro: `If you have any questions, feel free to contact our support team at ${application.job.recruiter.email}.`,
       },
     });
   };
@@ -53,7 +53,7 @@ export default class ApplicationTemplate {
             link: `${process.env.NX_CANDIDATE_URL}/applications`,
           },
         },
-        outro: `Thank you for your patience. If you need assistance, contact us at support@${application.job.recruiter.email}.`,
+        outro: `Thank you for your patience. If you need assistance, contact us at ${application.job.recruiter.email}.`,
       },
     });
   };
@@ -75,7 +75,7 @@ export default class ApplicationTemplate {
             link: `${process.env.NX_CANDIDATE_URL}/applications`,
           },
         },
-        outro: `If you have any questions, feel free to reach out to our support team at support@${application.job.recruiter.email}.`,
+        outro: `If you have any questions, feel free to reach out to our support team at ${application.job.recruiter.email}.`,
       },
     });
   };
@@ -97,7 +97,7 @@ export default class ApplicationTemplate {
             link: `${process.env.NX_CANDIDATE_URL}/jobs`,
           },
         },
-        outro: `Thank you for your interest in our company. If you would like feedback or have any questions, please contact us at support@${application.job.recruiter.email}.`,
+        outro: `Thank you for your interest in our company. If you would like feedback or have any questions, please contact us at ${application.job.recruiter.email}.`,
       },
     });
   };
