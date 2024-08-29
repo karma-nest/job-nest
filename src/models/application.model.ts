@@ -68,26 +68,10 @@ Application.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    jobId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Job,
-        key: 'id',
-      },
-    },
-    candidateId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Candidate,
-        key: 'id',
-      },
-    },
     status: {
-      type: DataTypes.ENUM('Pending', 'Approved', 'Shortlisted', 'Rejected'),
+      type: DataTypes.ENUM('Received', 'Shortlisted', 'Approved', 'Rejected'),
       allowNull: true,
-      defaultValue: 'Pending',
+      defaultValue: 'Received',
     },
   },
   {
