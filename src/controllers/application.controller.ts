@@ -4,12 +4,14 @@
  * @version 1.0
  */
 
-import { ResponseUtil } from '../utils';
 import { Request, Response } from 'express';
-import { ApplicationService } from '../services';
 import { StatusCodes } from 'http-status-codes';
+
+import { ResponseUtil } from '../utils';
+import { ApplicationService } from '../services';
 import { IApplicationsQuery } from '../interfaces';
 import { ApplicationStatus } from '../types';
+import { validateUpdateApplication } from '../validators';
 
 /**
  * Controller class to manage application-related HTTP requests.
@@ -58,7 +60,7 @@ export default class ApplicationController extends ResponseUtil {
       const userId = req.app.locals.user.id;
 
       if (isNaN(jobId)) {
-        return this.unprocessableEntity(res, 'Invalid jon ID.');
+        return this.unprocessableEntity(res, 'Invalid job ID.');
       }
 
       await this.applicationService.createApplication(userId, jobId);
@@ -131,6 +133,14 @@ export default class ApplicationController extends ResponseUtil {
     try {
       const applicationId = this.validateApplicationId(req);
       const status = req.body.status as ApplicationStatus;
+
+      const { error } = validateUpdateApplication(status);
+      if (error) {
+        const errorMessage = error.details[0].message
+          .replace(/\\"/g, '"')
+          .replace(/^"|"$/g, '');
+        return this.unprocessableEntity(res, errorMessage);
+      }
 
       await this.applicationService.updateApplication(applicationId, status);
 
