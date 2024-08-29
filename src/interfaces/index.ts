@@ -7,6 +7,13 @@
 export { IAdmin, IAdminCreation } from './admin.interface';
 
 export {
+  IApplication,
+  IApplicationCreation,
+  IApplicationsQuery,
+  IApplicationQuery,
+} from './application.interface';
+
+export {
   IAuthConfig,
   IRoleAuthConfig,
   IAuthorizationConfig,
