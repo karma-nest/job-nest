@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-import { IApplicationDTO } from 'src/dtos/application.dto';
+import { IApplicationDTO } from '../dtos/application.dto';
 import { ApplicationHelper, CandidateHelper, JobHelper } from '../helpers';
 import { IApplicationsQuery } from '../interfaces';
 import {
