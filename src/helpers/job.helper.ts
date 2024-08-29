@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-import { Op, WhereOptions, Transaction, where } from 'sequelize';
+import { Op, WhereOptions, Transaction } from 'sequelize';
 import { sequelize } from '../libs';
 import { IJob, IJobQuery } from '../interfaces';
 import { IJobDTO, toIJobDTO } from '../dtos';
@@ -152,7 +152,7 @@ export default class JobHelper {
    */
   public getJobs = async (jobsQuery: IJobQuery): Promise<IJobDTO[]> => {
     try {
-      const pageSize = 12;
+      const pageSize = jobsQuery.pageSize | 12;
       const page = jobsQuery.page || 1;
       const offset = (page - 1) * pageSize;
 

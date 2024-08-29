@@ -37,6 +37,8 @@ interface IJobQuery {
   tags?: string[];
   isActive?: boolean;
   page?: number;
+  pageSize?: number;
+  createdAt?: Date;
 }
 
 /**
