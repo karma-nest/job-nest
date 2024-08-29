@@ -22,6 +22,7 @@ interface IApplicationDTO {
     lastName: string | null;
     user: {
       avatarUrl: object;
+      email: string;
     };
   };
   status: string | null;
@@ -45,6 +46,7 @@ const toIApplicationDTO = (application: IApplication): IApplicationDTO => ({
     lastName: application.candidate.lastName,
     user: {
       avatarUrl: application.candidate.user.avatarUrl,
+      email: application.candidate.user.email,
     },
   },
   status: application['status'],
