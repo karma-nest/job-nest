@@ -4,8 +4,11 @@
  * @version
  */
 
+/**
+ * Defines the possible statuses for a job application.
+ */
 export type ApplicationStatus =
-  | 'Pending'
-  | 'Approved'
+  | 'Received'
   | 'Shortlisted'
+  | 'Approved'
   | 'Rejected';

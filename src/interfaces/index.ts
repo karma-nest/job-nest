@@ -10,7 +10,7 @@ export {
   IApplication,
   IApplicationCreation,
   IApplicationsQuery,
-  IApplicationQuery
+  IApplicationQuery,
 } from './application.interface';
 
 export {

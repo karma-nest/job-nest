@@ -47,4 +47,9 @@ interface IApplicationQuery {
   jobId?: number;
 }
 
-export { IApplication, IApplicationCreation, IApplicationsQuery, IApplicationQuery };
+export {
+  IApplication,
+  IApplicationCreation,
+  IApplicationsQuery,
+  IApplicationQuery,
+};
