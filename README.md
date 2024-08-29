@@ -121,7 +121,7 @@ npm test
 - [x] `► Canddate Profile`
 - [x] `► Recruiter Profile`
 - [x] `► Job Service`
-- [ ] `► Application Service`
+- [x] `► Application Service`
 
 ---
 
