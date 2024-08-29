@@ -88,7 +88,6 @@ export default class ApplicationHelper {
     applicationFilter: IApplicationQuery
   ): Promise<IApplicationDTO | null> => {
     try {
-      // Build query conditions dynamically based on input
       const queryConditions: any = {
         [Op.or]: [],
       };
@@ -219,11 +218,6 @@ export default class ApplicationHelper {
     }
   };
 
-  /**
-   * Removes an application by its ID.
-   * @param {number} applicationId - The ID of the application to remove.
-   * @returns {Promise<void>} A promise that resolves when the application is removed.
-   */
   public removeApplication = async (applicationId: number): Promise<void> => {
     const transaction: Transaction = await sequelize.transaction();
 
