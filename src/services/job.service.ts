@@ -5,7 +5,7 @@
  */
 import { JobHelper, RecruiterHelper } from '../helpers';
 import { IJob, IJobQuery } from '../interfaces';
-import { CreateErrorUtil } from '../utils';
+import { BadRequestError, CreateErrorUtil, NotFoundError } from '../utils';
 import { IJobDTO } from '../dtos';
 
 export default class JobService {
@@ -35,6 +35,23 @@ export default class JobService {
       });
     }
     return job;
+  }
+
+  private handleServiceError(
+    method: string,
+    error: Error,
+    errorMessage: string
+  ) {
+    if (error instanceof NotFoundError || error instanceof BadRequestError) {
+      throw error;
+    }
+
+    this.errorUtil.createInternalServerError(errorMessage, {
+      module: this.moduleName,
+      method,
+      trace: { error: error.message || error },
+    });
+    throw error;
   }
 
   constructor(moduleName: string) {
@@ -75,12 +92,21 @@ export default class JobService {
    */
   public async getJob(jobId: number): Promise<IJobDTO> {
     try {
-      const job = await this.findJobByIdOrThrow(jobId, 'getJob');
+      const job = await this.jobHelper.getJob(jobId);
+      if (!job) {
+        throw this.errorUtil.createNotFoundError('Job not found..', {
+          module: this.moduleName,
+          method: 'getJob',
+          trace: { jobId, error: 'Job record not found' },
+        });
+      }
+
       return job;
     } catch (error) {
-      throw this.errorUtil.createInternalServerError(
-        'An unexpected error occurred while retrieving job.',
-        { module: this.moduleName, method: 'getJob', trace: { jobId, error } }
+      this.handleServiceError(
+        'getJob',
+        error,
+        'An unexpected error occurred while retrieving job.'
       );
     }
   }
@@ -95,7 +121,6 @@ export default class JobService {
     try {
       const filteredJobs = await this.jobHelper.getJobs(filterQuery);
 
-      console.debug(filteredJobs);
       if (filteredJobs.length === 0) {
         throw this.errorUtil.createNotFoundError('No jobs available.', {
           module: this.moduleName,
@@ -105,13 +130,10 @@ export default class JobService {
       }
       return filteredJobs;
     } catch (error) {
-      throw this.errorUtil.createInternalServerError(
-        'An unexpected error occurred while filtering jobs.',
-        {
-          module: this.moduleName,
-          method: 'filterJobs',
-          trace: { filterQuery, error },
-        }
+      this.handleServiceError(
+        'filterJobs',
+        error,
+        'An unexpected error occurred while filtering jobs.'
       );
     }
   }
@@ -129,15 +151,25 @@ export default class JobService {
   ): Promise<void> {
     try {
       await this.findJobByIdOrThrow(jobId, 'updateJob');
+
+      const foundJob = await this.jobHelper.getJob(jobId);
+      if (!foundJob) {
+        throw this.errorUtil.createNotFoundError(
+          'An unexpected error occurred while updating job.',
+          {
+            module: this.moduleName,
+            method: 'updateJob',
+            trace: { jobId, error: 'Job record not found.' },
+          }
+        );
+      }
+
       await this.jobHelper.updateJob(jobId, updateQuery);
     } catch (error) {
-      throw this.errorUtil.createInternalServerError(
-        'An unexpected error occurred while updating job.',
-        {
-          module: this.moduleName,
-          method: 'updateJob',
-          trace: { jobId, error },
-        }
+      this.handleServiceError(
+        'updateJob',
+        error,
+        'An unexpected error occurred while updating job.'
       );
     }
   }
@@ -150,16 +182,24 @@ export default class JobService {
    */
   public async removeJob(jobId: number): Promise<void> {
     try {
-      await this.findJobByIdOrThrow(jobId, 'removeJob');
+      const job = await this.jobHelper.getJob(jobId);
+      if (!job) {
+        throw this.errorUtil.createNotFoundError(
+          'An unexpected error occurred while removing job.',
+          {
+            module: this.moduleName,
+            method: 'removeJob',
+            trace: { jobId, error: 'Job record not found.' },
+          }
+        );
+      }
+
       await this.jobHelper.removeJob(jobId);
     } catch (error) {
-      throw this.errorUtil.createInternalServerError(
-        'An unexpected error occurred while removing job.',
-        {
-          module: this.moduleName,
-          method: 'removeJob',
-          trace: { jobId, error },
-        }
+      this.handleServiceError(
+        'removeJob',
+        error,
+        'An unexpected error occurred while removing job.'
       );
     }
   }

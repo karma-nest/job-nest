@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-import { Op, WhereOptions, Transaction } from 'sequelize';
+import { Op, WhereOptions, Transaction, where } from 'sequelize';
 import { sequelize } from '../libs';
 import { IJob, IJobQuery } from '../interfaces';
 import { IJobDTO, toIJobDTO } from '../dtos';
@@ -62,19 +62,20 @@ export default class JobHelper {
     }
 
     if (jobQuery.title) {
-      whereClause['title'] = { [Op.like]: `%${jobQuery.title}%` };
+      whereClause['title'] = { [Op.iLike]: `%${jobQuery.title}%` };
     }
 
     if (jobQuery.type) {
-      if (Array.isArray(jobQuery.tags)) {
-        whereClause['tags'] = { [Op.contains]: jobQuery.tags };
-      } else if (jobQuery.tags) {
-        whereClause['tags'] = { [Op.like]: `%${jobQuery.tags}%` };
-      }
+      whereClause.raw = sequelize.where(
+        sequelize.cast(sequelize.col('type'), 'TEXT'),
+        {
+          [Op.iLike]: `%${jobQuery.type}%`,
+        }
+      );
     }
 
     if (jobQuery.location) {
-      whereClause['location'] = { [Op.like]: `%${jobQuery.location}%` };
+      whereClause['location'] = { [Op.iLike]: `%${jobQuery.location}%` };
     }
 
     return whereClause;
@@ -227,6 +228,4 @@ export default class JobHelper {
       throw error;
     }
   };
-
-  // Helper methods for transaction management
 }

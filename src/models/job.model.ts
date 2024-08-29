@@ -8,6 +8,7 @@ import { DataTypes, Model, Association } from 'sequelize';
 import { sequelize } from '../libs';
 import { Recruiter } from './recruiter.model';
 import { IJob } from '../interfaces';
+import { JobType } from '../types';
 
 /**
  * Job model class.
@@ -61,12 +62,7 @@ class Job extends Model<IJob> implements IJob {
    * Job type
    * @type {'Full-time' | 'Part-time' | 'Contract' | 'Freelance' | 'Internship'}
    */
-  public type!:
-    | 'Full-time'
-    | 'Part-time'
-    | 'Contract'
-    | 'Freelance'
-    | 'Internship';
+  public type!: JobType;
 
   /**
    * Job vacancy
@@ -130,11 +126,11 @@ class Job extends Model<IJob> implements IJob {
       as: 'recruiter',
       onDelete: 'CASCADE',
     });
-    // Job.hasMany(models.Application, {
-    //   foreignKey: 'jobId',
-    //   as: 'applications',
-    //   onDelete: 'CASCADE',
-    // });
+    Job.hasMany(models.Application, {
+      foreignKey: 'jobId',
+      as: 'application',
+      onDelete: 'CASCADE',
+    });
   }
 }
 
