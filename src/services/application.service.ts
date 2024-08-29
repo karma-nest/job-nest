@@ -5,10 +5,17 @@
  */
 
 import { IApplicationDTO } from 'src/dtos/application.dto';
-import { ApplicationHelper, CandidateHelper } from '../helpers';
+import { ApplicationHelper, CandidateHelper, JobHelper } from '../helpers';
 import { IApplicationsQuery } from '../interfaces';
-import { BadRequestError, CreateErrorUtil, NotFoundError } from '../utils';
+import {
+  BadRequestError,
+  CreateErrorUtil,
+  logger,
+  NotFoundError,
+  NotificationUtil,
+} from '../utils';
 import { ApplicationStatus } from '../types';
+import { ApplicationTemplate } from '../templates';
 
 /**
  * Service class to manage application-related operations.
@@ -17,7 +24,10 @@ export default class ApplicationService {
   private readonly moduleName: string;
   private readonly applicationHelper: ApplicationHelper;
   private readonly candidateHelper: CandidateHelper;
+  private readonly jobHelper: JobHelper;
   private readonly errorUtil: CreateErrorUtil;
+  private readonly notificationUtil: NotificationUtil;
+  private readonly applicationTemplate: ApplicationTemplate;
 
   /**
    * Handles service errors by creating and throwing the appropriate error.
@@ -43,6 +53,47 @@ export default class ApplicationService {
     throw error;
   }
 
+  private getEmailContent = (
+    status: ApplicationStatus,
+    firstName: string,
+    application: IApplicationDTO
+  ): { subject: string; template: string } => {
+    switch (status) {
+      case 'Received':
+        return {
+          subject: 'Your Application Has Been Received!',
+          template: this.applicationTemplate.applicationReceived(
+            firstName,
+            application
+          ),
+        };
+      case 'Shortlisted':
+        return {
+          subject: 'Your Application Has Been Shortlisted!',
+          template: this.applicationTemplate.applicationUnderReview(
+            firstName,
+            application
+          ),
+        };
+      case 'Approved':
+        return {
+          subject: 'Congratulations! Your Application Has Been Approved',
+          template: this.applicationTemplate.applicationApproved(
+            firstName,
+            application
+          ),
+        };
+      default:
+        return {
+          subject: 'Your Application is Now Closed',
+          template: this.applicationTemplate.applicationRejected(
+            firstName,
+            application
+          ),
+        };
+    }
+  };
+
   /**
    * Constructor for ApplicationService.
    * @param {string} moduleName - The name of the module for error logging.
@@ -51,7 +102,10 @@ export default class ApplicationService {
     this.moduleName = moduleName;
     this.applicationHelper = new ApplicationHelper();
     this.candidateHelper = new CandidateHelper();
+    this.jobHelper = new JobHelper();
     this.errorUtil = new CreateErrorUtil();
+    this.notificationUtil = new NotificationUtil();
+    this.applicationTemplate = new ApplicationTemplate();
   }
 
   /**
@@ -68,6 +122,7 @@ export default class ApplicationService {
   ): Promise<void> => {
     try {
       const candidate = await this.candidateHelper.getCandidate(userId);
+      const job = await this.jobHelper.getJob(jobId);
       const existingApplication = await this.applicationHelper.getApplication({
         candidateId: candidate.id,
         jobId,
@@ -85,11 +140,40 @@ export default class ApplicationService {
       }
 
       const candidatePayload = {
-        candidateId: candidate.id,
-        jobId,
+        candidateId: candidate['id'],
+        jobId: job['id'],
       };
 
-      await this.applicationHelper.createApplication(candidatePayload);
+      const newApplication = await this.applicationHelper.createApplication(
+        candidatePayload
+      );
+      const foundApplication = await this.applicationHelper.getApplication({
+        applicationId: newApplication.id,
+      });
+
+      const { subject, template } = this.getEmailContent(
+        'Received',
+        candidate.firstName,
+        foundApplication
+      );
+      await new Promise<void>((resolve) => {
+        this.notificationUtil.sendEmail(
+          candidate['user']['email'],
+          subject,
+          template,
+          (error) => {
+            if (error) {
+              logger.application.warn(
+                'Failed to send application received email',
+                error
+              );
+              resolve();
+            } else {
+              resolve();
+            }
+          }
+        );
+      });
     } catch (error) {
       this.handleServiceError(
         'createApplication',
@@ -200,6 +284,32 @@ export default class ApplicationService {
       }
 
       await this.applicationHelper.updateApplication(application.id, status);
+
+      const { candidate } = application;
+      const { subject, template } = this.getEmailContent(
+        status,
+        candidate.firstName,
+        application
+      );
+
+      await new Promise<void>((resolve) => {
+        this.notificationUtil.sendEmail(
+          candidate['user']['email'],
+          subject,
+          template,
+          (error) => {
+            if (error) {
+              logger['application']['warn'](
+                'Failed to send application status update email',
+                error
+              );
+              resolve();
+            } else {
+              resolve();
+            }
+          }
+        );
+      });
     } catch (error) {
       this.handleServiceError(
         'updateApplication',
