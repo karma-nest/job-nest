@@ -4,28 +4,30 @@
  * @version
  */
 
+import { ApplicationStatus } from '../types';
 import { IApplication } from '../interfaces';
 
 interface IApplicationDTO {
   id: number;
   job: {
     id: number;
-    title: string | null;
+    title: string;
     recruiter: {
       id: number;
-      name: string | null;
+      name: string;
+      email: string;
     };
   };
   candidate: {
     id: number;
-    firstName: string | null;
-    lastName: string | null;
+    firstName: string;
+    lastName: string;
     user: {
       avatarUrl: object;
       email: string;
     };
   };
-  status: string | null;
+  status: ApplicationStatus;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -38,6 +40,7 @@ const toIApplicationDTO = (application: IApplication): IApplicationDTO => ({
     recruiter: {
       id: application.job.recruiter.id,
       name: application.job.recruiter.name,
+      email: application.job.recruiter.user.email,
     },
   },
   candidate: {
@@ -49,7 +52,7 @@ const toIApplicationDTO = (application: IApplication): IApplicationDTO => ({
       email: application.candidate.user.email,
     },
   },
-  status: application['status'],
+  status: application.status,
 });
 
 export { IApplicationDTO, toIApplicationDTO };
