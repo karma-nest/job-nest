@@ -14,7 +14,7 @@ The HuntX Engine team takes security bugs seriously. We appreciate your efforts 
 
 ### How to Report a Security Vulnerability?
 
-To report a security issue, please send an email to <giftmoobi@gmail.com> with the following information:
+To report a security issue, please send an email to <info@afridek.software> with the following information:
 
 1. A detailed description of the vulnerability.
 2. Steps to reproduce the issue (if applicable).
@@ -51,4 +51,4 @@ This policy ensures that HuntX Engine users have time to deploy fixes before the
 
 ## Contact Information
 
-For any questions regarding this security policy, please contact <giftmoobi@gmail.com>.
+For any questions regarding this security policy, please contact <info@afridek.software>.
