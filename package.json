@@ -1,5 +1,5 @@
 {
-  "name": "huntx-engine",
+  "name": "@huntx-engine/source",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
