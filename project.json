@@ -1,5 +1,5 @@
 {
-  "name": "hunt-x",
+  "name": "huntx-engine",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "src",
   "projectType": "application",
@@ -11,7 +11,7 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist/hunt-x",
+        "outputPath": "dist/huntx-engine",
         "format": ["cjs"],
         "bundle": false,
         "main": "src/main.ts",
@@ -42,20 +42,20 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "hunt-x:build"
+        "buildTarget": "huntx-engine:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "hunt-x:build:development"
+          "buildTarget": "huntx-engine:build:development"
         },
         "production": {
-          "buildTarget": "hunt-x:build:production"
+          "buildTarget": "huntx-engine:build:production"
         }
       }
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f Dockerfile . -t hunt-x"
+      "command": "docker build -f Dockerfile . -t huntx-engine"
     }
   }
 }

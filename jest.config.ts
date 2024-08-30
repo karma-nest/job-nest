@@ -1,13 +1,13 @@
 /* eslint-disable */
 export default {
-  displayName: 'hunt-x',
+  displayName: 'huntx-engine',
   preset: './jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: './coverage/hunt-x',
+  coverageDirectory: './coverage/huntx-engine',
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
     '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
