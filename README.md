@@ -59,7 +59,6 @@
 
 ## 📦 Features
 
-- **Admin Management**: Description of the admin management features. This includes tools and interfaces for managing users, permissions, and system configurations.
 - **Application Management**: Manage and track job applications. This includes application submission, status tracking, and communication with candidates.
 - **Authentication**: Secure login and registration system with support for multi-factor authentication, password recovery, and account activation.
 - **Candidate Management**: Features for managing candidate profiles, skill sets, and job preferences. Includes tools for candidates to track their application history and receive job alerts.
@@ -117,7 +116,6 @@ npm test
 ## 🛠 Project Roadmap
 
 - [x] `► Authentiation and Authorization`
-- [x] `► Admin Profile`
 - [x] `► Canddate Profile`
 - [x] `► Recruiter Profile`
 - [x] `► Job Service`
