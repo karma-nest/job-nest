@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npx env-cmd -f ./.env nx serve",
+    "format": "nx format",
+    "lint": "nx lint",
     "build": "nx build",
     "test": "nx test --reporters default jest-stare"
   },
