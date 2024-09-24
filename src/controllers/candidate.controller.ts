@@ -14,7 +14,7 @@ export default class CandidateController extends ResponseUtil {
   private readonly candidateService: CandidateService;
 
   constructor() {
-    super('admin');
+    super('candidate');
     this.candidateService = new CandidateService('candidate.controller');
   }
 

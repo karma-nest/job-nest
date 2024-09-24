@@ -12,7 +12,6 @@ import fs from 'fs';
 import path from 'path';
 import { privateAuthorizationMiddleware } from './';
 import {
-  AdminRoutes,
   ApplicationRoutes,
   AuthRoutes,
   CandidateRoutes,
@@ -53,11 +52,6 @@ export const configureMiddlewares = (app: Application): void => {
 
   const API_VERSION = '/api/v1';
 
-  app.use(
-    `${API_VERSION}/admins`,
-    privateAuthorizationMiddleware.authorizeAdmin,
-    new AdminRoutes().init()
-  );
   app.use(`${API_VERSION}/applications`, new ApplicationRoutes().init());
   app.use(`${API_VERSION}/auth`, new AuthRoutes().init());
   app.use(

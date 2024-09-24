@@ -7,12 +7,7 @@ import { TokenExpiredError } from 'jsonwebtoken';
 import { notificationConfig } from '../configs';
 import { AuthTemplate } from '../templates';
 import { redis } from '../libs';
-import {
-  AdminHelper,
-  CandidateHelper,
-  RecruiterHelper,
-  UserHelper,
-} from '../helpers';
+import { CandidateHelper, RecruiterHelper, UserHelper } from '../helpers';
 import {
   CreateErrorUtil,
   JwtUtil,
@@ -20,10 +15,8 @@ import {
   passwordUtil,
 } from '../utils';
 import {
-  IAdminRegister,
   ICandidateRegister,
   IRecruiterRegister,
-  IAdmin,
   ICandidate,
   IRecruiter,
   IUser,
@@ -34,7 +27,6 @@ export default class AuthService {
   private readonly moduleName: string;
 
   // Helper
-  private readonly adminHelper: AdminHelper;
   private readonly candidateHelper: CandidateHelper;
   private readonly recruiterHelper: RecruiterHelper;
   private readonly userHelper: UserHelper;
@@ -176,12 +168,12 @@ export default class AuthService {
    * Creates a role-specific user based on the provided role.
    *
    * @param {Partial<IUser>} newUser - The new user information including the role.
-   * @param {Partial<IAdmin | ICandidate | IRecruiter>} userData - Additional user data specific to the role.
+   * @param {Partial< | ICandidate | IRecruiter>} userData - Additional user data specific to the role.
    * @throws {InternalServerError} If the user role is invalid.
    */
   private createRoleSpecificUser = async (
     newUser: Partial<IUser>,
-    userData: IAdmin | ICandidate | IRecruiter
+    userData: ICandidate | IRecruiter
   ): Promise<void> => {
     if (!newUser.role) {
       throw this.errorUtil.createInternalServerError('User role is missing.', {
@@ -195,12 +187,6 @@ export default class AuthService {
     }
 
     switch (newUser.role) {
-      case 'admin':
-        await this.adminHelper.createAdmin({
-          ...(userData as IAdmin),
-          userId: newUser?.id,
-        });
-        break;
       case 'candidate':
         await this.candidateHelper.createCandidate({
           ...(userData as ICandidate),
@@ -228,7 +214,6 @@ export default class AuthService {
   constructor() {
     this.moduleName = 'auth.service';
     this.authTemplates = new AuthTemplate();
-    this.adminHelper = new AdminHelper();
     this.candidateHelper = new CandidateHelper();
     this.userHelper = new UserHelper();
     this.recruiterHelper = new RecruiterHelper();
@@ -239,14 +224,14 @@ export default class AuthService {
 
   /**
    * Registers a new user and sends an activation email.
-   * @param {'admin' | 'candidate' | 'recruiter'} role - The role of the user.
-   * @param {IAdminRegister | ICandidateRegister | IRecruiterRegister} registerCreds - The registration credentials.
+   * @param {'candidate' | 'recruiter'} role - The role of the user.
+   * @param {ICandidateRegister | IRecruiterRegister} registerCreds - The registration credentials.
    * @returns {Promise<{ message: string }>} - A promise resolving to an object containing a success message.
    * @throws Will throw an error if the registration or email sending process fails.
    */
   public register = async (
-    role: 'admin' | 'candidate' | 'recruiter',
-    registerCreds: IAdminRegister | ICandidateRegister | IRecruiterRegister
+    role: 'candidate' | 'recruiter',
+    registerCreds: ICandidateRegister | IRecruiterRegister
   ): Promise<{ message: string }> => {
     // Fetch user document from the database and check if it already exists
     const foundUser = await this.userHelper.getUser({

@@ -4,8 +4,6 @@
  * @version
  */
 
-export { default as AdminHelper } from './admin.helper';
-
 export { default as ApplicationHelper } from './application.helper';
 
 export { default as CandidateHelper } from './candidate.helper';

@@ -25,8 +25,6 @@ export default class AuthenticationMiddleware extends ResponseUtil {
 
   public getUserRole = (subdomain: string): string => {
     switch (subdomain) {
-      case 'admin':
-        return 'admin';
       case 'www':
         return 'candidate';
       case 'recruiter':
@@ -41,7 +39,7 @@ export default class AuthenticationMiddleware extends ResponseUtil {
     const hostname = new URL(origin + baseUrl).hostname;
     const subdomain = hostname.split('.')[0];
 
-    if (!['admin', 'www', 'recruiter'].includes(subdomain)) {
+    if (!['www', 'recruiter'].includes(subdomain)) {
       throw new Error('Invalid subdomain.');
     }
 

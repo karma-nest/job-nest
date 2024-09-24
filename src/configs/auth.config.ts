@@ -17,7 +17,6 @@ const getRoleAuthConfig = (role: string): IRoleAuthConfig => ({
 });
 
 export const authConfig: IAuthConfig = {
-  admin: getRoleAuthConfig('ADMIN'),
   candidate: getRoleAuthConfig('CANDIDATE'),
   recruiter: getRoleAuthConfig('RECRUITER'),
 };

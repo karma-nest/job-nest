@@ -5,7 +5,7 @@
  * @module authTypes
  */
 
-import { IAdmin, ICandidate, IRecruiter } from './';
+import { ICandidate, IRecruiter } from './';
 
 interface IJwtConfig {
   accessToken: string;
@@ -23,7 +23,6 @@ interface IRoleAuthConfig {
 }
 
 interface IAuthConfig {
-  admin: IRoleAuthConfig;
   candidate: IRoleAuthConfig;
   recruiter: IRoleAuthConfig;
 }
@@ -41,7 +40,6 @@ interface IBaseRegister {
   confirmPassword: string;
 }
 
-type IAdminRegister = IAdmin & IBaseRegister;
 type ICandidateRegister = ICandidate & IBaseRegister;
 type IRecruiterRegister = IRecruiter & IBaseRegister;
 
@@ -49,7 +47,6 @@ export {
   IAuthConfig,
   IRoleAuthConfig,
   IAuthorizationConfig,
-  IAdminRegister,
   ICandidateRegister,
   IRecruiterRegister,
 };

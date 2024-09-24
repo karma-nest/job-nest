@@ -15,7 +15,7 @@ interface IUser {
   email: string;
   mobileNumber: string;
   password: string;
-  role?: 'admin' | 'candidate' | 'recruiter';
+  role?: 'candidate' | 'recruiter';
   isVerified?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

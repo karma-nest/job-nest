@@ -4,8 +4,6 @@
  * @version
  */
 
-export { IAdmin, IAdminCreation } from './admin.interface';
-
 export {
   IApplication,
   IApplicationCreation,
@@ -17,7 +15,6 @@ export {
   IAuthConfig,
   IRoleAuthConfig,
   IAuthorizationConfig,
-  IAdminRegister,
   ICandidateRegister,
   IRecruiterRegister,
 } from './auth.interface';

@@ -2,7 +2,6 @@
 import { Association, DataTypes, Model } from 'sequelize';
 import { sequelize } from '../libs';
 import { IUser } from '../interfaces';
-import { Admin } from './admin.model';
 import { Candidate } from './candidate.model';
 import { Recruiter } from './recruiter.model';
 
@@ -17,24 +16,18 @@ class User extends Model<IUser> implements IUser {
   public email!: string;
   public mobileNumber!: string;
   public password!: string;
-  public role!: 'admin' | 'candidate' | 'recruiter';
+  public role!: 'candidate' | 'recruiter';
   public isVerified!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
   // User mode
   public static associations: {
-    admin: Association<User, Admin>;
     candidate: Association<User, Candidate>;
     recruiter: Association<User, Recruiter>;
   };
 
   public static associate(models: any) {
-    User.hasOne(models.Admin, {
-      foreignKey: 'userId',
-      as: 'admin',
-      onDelete: 'CASCADE',
-    });
     User.hasOne(models.Candidate, {
       foreignKey: 'userId',
       as: 'candidate',
@@ -77,7 +70,7 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('admin', 'candidate', 'recruiter'),
+      type: DataTypes.ENUM('candidate', 'recruiter'),
       allowNull: false,
       defaultValue: 'candidate',
     },

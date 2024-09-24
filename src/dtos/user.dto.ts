@@ -11,7 +11,7 @@ interface IUserDTO {
   avatarUrl: string;
   email: string;
   mobileNumber: string;
-  role: 'admin' | 'candidate' | 'recruiter';
+  role: 'candidate' | 'recruiter';
   isVerified: boolean;
   password: string;
 }

@@ -121,11 +121,6 @@ export default class PrivateAuthorizationMiddleware extends ResponseUtil {
   };
 
   /**
-   * Authorize an admin.
-   */
-  public authorizeAdmin = this.authorizeRole('admin');
-
-  /**
    * Authorize a candidate.
    */
   public authorizeCandidate = this.authorizeRole('candidate');

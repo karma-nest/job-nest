@@ -4,8 +4,6 @@
  * @version
  */
 
-export { validateAdmin } from './admin.validator';
-
 export {
   validateCreateApplication,
   validateUpdateApplication,
@@ -26,7 +24,6 @@ export {
 export { validateRecruiter } from './recruiter.validator';
 
 export {
-  adminRegisterSchema,
   candidateRegisterSchema,
   recruiterRegisterSchema,
   registerValidator,

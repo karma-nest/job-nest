@@ -51,7 +51,7 @@ export default class AccountAuthorizationMiddleware extends ResponseUtil {
     const hostname = new URL(origin + baseUrl).hostname;
     const subdomain = hostname.split('.')[0];
 
-    if (!['admin', 'www', 'recruiter'].includes(subdomain)) {
+    if (!['www', 'recruiter'].includes(subdomain)) {
       throw new Error('Invalid subdomain.');
     }
 

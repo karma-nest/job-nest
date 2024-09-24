@@ -6,12 +6,8 @@
 import { notificationConfig } from '../configs';
 import { NotificationLib } from '../libs';
 
-const {
-  NX_AUTHENTICATION_API,
-  NX_ADMIN_URL,
-  NX_RECRUITER_URL,
-  NX_CANDIDATE_URL,
-} = process.env;
+const { NX_AUTHENTICATION_API, NX_RECRUITER_URL, NX_CANDIDATE_URL } =
+  process.env;
 
 export default class AuthTemplate {
   private generateActivationUrl = (activationToken: string): string => {
@@ -25,9 +21,7 @@ export default class AuthTemplate {
     passwordToken: string
   ): string => {
     const url =
-      role === 'admin'
-        ? NX_ADMIN_URL
-        : role === 'candidate'
+      role === 'candidate'
         ? NX_CANDIDATE_URL
         : role === 'recruiter'
         ? NX_RECRUITER_URL

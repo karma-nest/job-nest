@@ -8,11 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 import AuthService from '../services/auth.service';
 import { ResponseUtil } from '../utils';
-import {
-  IAdminRegister,
-  ICandidateRegister,
-  IRecruiterRegister,
-} from '../interfaces';
+import { ICandidateRegister, IRecruiterRegister } from '../interfaces';
 import { registerValidator, compareStrings } from '../validators';
 import validator from 'validator';
 
@@ -34,20 +30,13 @@ export default class AuthController extends ResponseUtil {
   public register = async (req: Request, res: Response): Promise<void> => {
     try {
       // Assert the type of req.query and provide a default value if role is missing
-      const { role }: { role?: 'admin' | 'candidate' | 'recruiter' } =
-        req.query || {};
-      const userData = req.body as
-        | IAdminRegister
-        | ICandidateRegister
-        | IRecruiterRegister;
-      if (!role || !['admin', 'candidate', 'recruiter'].includes(role)) {
+      const { role }: { role?: 'candidate' | 'recruiter' } = req.query || {};
+      const userData = req.body as ICandidateRegister | IRecruiterRegister;
+      if (!role || !['candidate', 'recruiter'].includes(role)) {
         return this.unprocessableEntity(res, 'All fields are required.');
       }
 
       switch (role) {
-        case 'admin':
-          registerValidator(role, userData);
-          break;
         case 'candidate':
           registerValidator(role, userData);
           break;

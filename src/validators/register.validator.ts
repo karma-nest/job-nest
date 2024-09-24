@@ -4,11 +4,7 @@
  * @version
  */
 import Joi from 'joi';
-import {
-  IAdminRegister,
-  ICandidateRegister,
-  IRecruiterRegister,
-} from '../interfaces';
+import { ICandidateRegister, IRecruiterRegister } from '../interfaces';
 
 const baseRegisterSchema = Joi.object({
   email: Joi.string().email().required().messages({
@@ -29,15 +25,6 @@ const baseRegisterSchema = Joi.object({
       'any.only': 'Confirm password must match the new password.',
       'any.required': 'Confirm password is required.',
     }),
-});
-
-const adminRegisterSchema = baseRegisterSchema.keys({
-  firstName: Joi.string().optional().messages({
-    'string.base': 'First name must be a string.',
-  }),
-  lastName: Joi.string().optional().messages({
-    'string.base': 'Last name must be a string.',
-  }),
 });
 
 const candidateRegisterSchema = baseRegisterSchema.keys({
@@ -87,15 +74,12 @@ const recruiterRegisterSchema = baseRegisterSchema.keys({
 type SchemaType = Joi.ObjectSchema<any>;
 
 const registerValidator = (
-  role: 'admin' | 'candidate' | 'recruiter',
-  registerCreds: IAdminRegister | ICandidateRegister | IRecruiterRegister
+  role: 'candidate' | 'recruiter',
+  registerCreds: ICandidateRegister | IRecruiterRegister
 ): void => {
   let schema: SchemaType;
 
   switch (role) {
-    case 'admin':
-      schema = adminRegisterSchema;
-      break;
     case 'candidate':
       schema = candidateRegisterSchema;
       break;
@@ -112,9 +96,4 @@ const registerValidator = (
   }
 };
 
-export {
-  adminRegisterSchema,
-  candidateRegisterSchema,
-  recruiterRegisterSchema,
-  registerValidator,
-};
+export { candidateRegisterSchema, recruiterRegisterSchema, registerValidator };

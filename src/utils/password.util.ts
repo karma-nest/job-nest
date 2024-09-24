@@ -8,7 +8,7 @@
 import * as argon2 from 'argon2';
 import { authConfig } from '../configs';
 
-type UserRole = 'admin' | 'candidate' | 'recruiter';
+type UserRole = 'candidate' | 'recruiter';
 
 class PasswordUtil {
   private static instance: PasswordUtil;
@@ -34,7 +34,7 @@ class PasswordUtil {
   /**
    * Hashes a password using Argon2 with a role-specific pepper.
    * @param {string} password - The plain text password to be hashed.
-   * @param {UserRole} role - The role of the user (admin, candidate, or recruiter).
+   * @param {UserRole} role - The role of the user (candidate, or recruiter).
    * @returns {Promise<string>} The hashed password.
    * @throws {Error} Throws an error if password hashing fails.
    */
@@ -54,7 +54,7 @@ class PasswordUtil {
    * Compares a plain text password with a hashed password using Argon2.
    * @param {string} plainPassword - The plain text password to compare.
    * @param {string} hashedPassword - The hashed password to compare against.
-   * @param {UserRole} role - The role of the user (admin, candidate, or recruiter).
+   * @param {UserRole} role - The role of the user (candidate, or recruiter).
    * @returns {Promise<boolean>} Returns true if the passwords match, false otherwise.
    * @throws {Error} Throws an error if password validation fails.
    */
