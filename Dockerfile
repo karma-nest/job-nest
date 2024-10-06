@@ -1,7 +1,7 @@
 # Stage 1: Build the application
 FROM node:21-alpine3.18 AS builder
 
-WORKDIR /huntx-engine
+WORKDIR /job-nest
 
 # Copy package files first to leverage Docker cache
 COPY package.json package-lock.json ./
@@ -23,14 +23,14 @@ ENV NODE_ENV=production
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-WORKDIR /huntx-engine
+WORKDIR /job-nest
 
 # Copy the build artifacts from the builder stage
-COPY --from=builder /huntx-engine/dist ./dist
-COPY --from=builder /huntx-engine/package.json ./
-COPY --from=builder /huntx-engine/node_modules ./node_modules
+COPY --from=builder /job-nest/dist ./dist
+COPY --from=builder /job-nest/package.json ./
+COPY --from=builder /job-nest/node_modules ./node_modules
 
-ENTRYPOINT [ "node", "--env-file=./.env", "./dist/huntx/main.js" ]
+ENTRYPOINT [ "node", "--env-file=./.env", "./dist/job-nest/main.js" ]
 
 # Expose the application port
 EXPOSE 8080

@@ -1,16 +1,16 @@
 <p align="center">
-  <h1>HuntX Engine</h1>
+  <h1>Job Nest</h1>
 </p>
 <p align="center">
     <em><code>🔍 Job Recruitment RESTful API.</code></em>
 </p>
 <p align="center">
-<img alt="GitHub NX Status" src="https://github.com/the-berufegoru/huntx-engine/actions/workflows/ci.yml/badge.svg">
-<img alt="GitHub CodeQL Status" src="https://github.com/the-berufegoru/huntx-engine/actions/workflows/codeql.yml/badge.svg">
-<img src="https://img.shields.io/github/license/the-berufegoru/huntx-engine?style=flat&color=0080ff" alt="license">
-<img src="https://img.shields.io/github/last-commit/the-berufegoru/huntx-engine?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-<img src="https://img.shields.io/github/languages/top/the-berufegoru/huntx-engine?style=flat&color=0080ff" alt="repo-top-language">
-<img src="https://img.shields.io/github/languages/count/the-berufegoru/huntx-engine?style=flat&color=0080ff" alt="repo-language-count">
+<img alt="GitHub NX Status" src="https://github.com/karma-nest/job-nest/actions/workflows/ci.yml/badge.svg">
+<img alt="GitHub CodeQL Status" src="https://github.com/karma-nest/job-nest/actions/workflows/codeql.yml/badge.svg">
+<img src="https://img.shields.io/github/license/karma-nest/job-nest?style=flat&color=0080ff" alt="license">
+<img src="https://img.shields.io/github/last-commit/karma-nest/job-nest?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+<img src="https://img.shields.io/github/languages/top/karma-nest/job-nest?style=flat&color=0080ff" alt="repo-top-language">
+<img src="https://img.shields.io/github/languages/count/karma-nest/job-nest?style=flat&color=0080ff" alt="repo-language-count">
 
 <p>
 <p align="center">
@@ -42,7 +42,7 @@
 > - [📦 Features](#-features)
 > - [🚀 Getting Started](#-getting-started)
 >   - [⚙️ Installation](#️-installation)
->   - [🤖 Running huntx-engine](#-running-huntx-engine)
+>   - [🤖 Running job-nest](#-running-job-nest)
 >   - [🧪 Tests](#-tests)
 > - [🛠 Project Roadmap](#-project-roadmap)
 > - [🤝 Contributing](#-contributing)
@@ -77,16 +77,16 @@ Ensure you have the following dependencies installed on your system:
 
 ### ⚙️ Installation
 
-1. Clone the huntx-engine repository:
+1. Clone the job-nest repository:
 
 ```sh
-git clone https://github.com/the-berufegoru/huntx-engine
+git clone https://github.com/karma-nest/job-nest
 ```
 
 2. Change to the project directory:
 
 ```sh
-cd huntx-engine
+cd job-nest
 ```
 
 3. Install the dependencies:
@@ -95,12 +95,12 @@ cd huntx-engine
 npm install
 ```
 
-### 🤖 Running huntx-engine
+### 🤖 Running job-nest
 
-Use the following command to run huntx-engine:
+Use the following command to run job-nest:
 
 ```sh
-npm run start:huntx-engine
+npm run start:job-nest
 ```
 
 ### 🧪 Tests
@@ -127,9 +127,9 @@ npm test
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Submit Pull Requests](https://github.com/the-berufegoru/huntx-engine/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/the-berufegoru/huntx-engine/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/the-berufegoru/huntx-engine/issues)**: Submit bugs found or log feature requests for huntx-engine.
+- **[Submit Pull Requests](https://github.com/karma-nest/job-nest/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/karma-nest/job-nest/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/karma-nest/job-nest/issues)**: Submit bugs found or log feature requests for job-nest.
 
 <details closed>
     <summary>Contributing Guidelines</summary>
@@ -138,7 +138,7 @@ Contributions are welcome! Here are several ways you can contribute:
 2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
 
    ```sh
-   git clone https://github.com/the-berufegoru/huntx-engine
+   git clone https://github.com/karma-nest/job-nest
    ```
 
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
@@ -170,7 +170,7 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 
 ## 📄 License
 
-This project is protected under the [MIT](LICENSE.md) License. For more details, refer to the [LICENSE](https://github.com/the-berufegoru/huntx-engine?tab=MIT-1-ov-file#readme/) file.
+This project is protected under the [MIT](LICENSE.md) License. For more details, refer to the [LICENSE](https://github.com/karma-nest/job-nest?tab=MIT-1-ov-file#readme/) file.
 
 ---
 

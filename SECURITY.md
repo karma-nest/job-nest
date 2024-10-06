@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Currently, HuntX Engine is in its development phase. The table below reflects the support status of HuntX Engine versions:
+Currently, Job Nest is in its development phase. The table below reflects the support status of Job Nest versions:
 
 | Version | Supported                           |
 | ------- | ----------------------------------- |
@@ -10,11 +10,11 @@ Currently, HuntX Engine is in its development phase. The table below reflects th
 
 ## Reporting a Vulnerability
 
-The HuntX Engine team takes security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+The Job Nest team takes security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
 
 ### How to Report a Security Vulnerability?
 
-To report a security issue, please send an email to <info@afridek.software> with the following information:
+To report a security issue, please send an email to <giftmoobi@gmail.com> with the following information:
 
 1. A detailed description of the vulnerability.
 2. Steps to reproduce the issue (if applicable).
@@ -37,9 +37,9 @@ We believe that public disclosure of vulnerabilities is an essential part of the
 However, we ask that you do not share your findings publicly until:
 
 - A patch has been developed, and it is reasonable to assume that users have had enough time to apply the patch.
-- The issue has been disclosed publicly by the HuntX Engine team.
+- The issue has been disclosed publicly by the Job Nest team.
 
-This policy ensures that HuntX Engine users have time to deploy fixes before the vulnerability is publicly disclosed.
+This policy ensures that Job Nest users have time to deploy fixes before the vulnerability is publicly disclosed.
 
 ## Security-Related Configuration
 
@@ -51,4 +51,4 @@ This policy ensures that HuntX Engine users have time to deploy fixes before the
 
 ## Contact Information
 
-For any questions regarding this security policy, please contact <info@afridek.software>.
+For any questions regarding this security policy, please contact <giftmoobi@gmail.com>.

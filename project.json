@@ -1,5 +1,5 @@
 {
-  "name": "huntx-engine",
+  "name": "job-nest",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "src",
   "projectType": "application",
@@ -11,7 +11,7 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist/huntx-engine",
+        "outputPath": "dist/job-nest",
         "format": ["cjs"],
         "bundle": false,
         "main": "src/main.ts",
@@ -42,20 +42,20 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "huntx-engine:build"
+        "buildTarget": "job-nest:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "huntx-engine:build:development"
+          "buildTarget": "job-nest:build:development"
         },
         "production": {
-          "buildTarget": "huntx-engine:build:production"
+          "buildTarget": "job-nest:build:production"
         }
       }
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f Dockerfile . -t huntx-engine"
+      "command": "docker build -f Dockerfile . -t job-nest"
     }
   }
 }
